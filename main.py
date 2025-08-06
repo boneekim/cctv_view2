@@ -43,5 +43,5 @@ def api_cctv():
     else:
         return jsonify({'error': 'Could not find location'}), 404
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)
