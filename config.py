@@ -1,0 +1,1 @@
+CCTV_API_KEY = 'bae2a59fb9ad4d27be4c243ae11bdb90'
