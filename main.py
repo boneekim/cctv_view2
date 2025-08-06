@@ -28,20 +28,26 @@ def index():
 
 @app.route('/api/cctv')
 def api_cctv():
-    location = request.args.get('location')
-    if not location:
-        return jsonify({'error': 'Location parameter is required'}), 400
+    try:
+        location = request.args.get('location')
+        if not location:
+            return jsonify({'error': 'Location parameter is required'}), 400
 
-    lon, lat = get_coords(location)
+        lon, lat = get_coords(location)
 
-    if lon and lat:
-        cctv_data = get_cctv_info(lon, lat)
-        if cctv_data and cctv_data.get('cctv'):
-            return jsonify(cctv_data)
+        if lon and lat:
+            cctv_data = get_cctv_info(lon, lat)
+            if cctv_data and cctv_data.get('cctv'):
+                return jsonify(cctv_data)
+            else:
+                return jsonify({'message': 'No CCTV found nearby'})
         else:
-            return jsonify({'message': 'No CCTV found nearby'})
-    else:
-        return jsonify({'error': 'Could not find location'}), 404
+            return jsonify({'error': 'Could not find location'}), 404
+    except Exception as e:
+        # Log the error for debugging purposes
+        print(f"An error occurred: {e}")
+        # Return a generic error message to the client
+        return jsonify({'error': 'An internal server error occurred.'}), 500
 
 # if __name__ == "__main__":
 #     app.run(debug=True)
