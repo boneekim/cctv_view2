@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 def get_coords(query):
     """VWorld 지오코더 API를 사용하여 주소나 장소 이름으로부터 좌표를 가져옵니다."""
-    api_url = f"http://api.vworld.kr/req/address?service=address&request=getcoord&version=2.0&crs=epsg:4326&address={query}&refine=true&simple=false&format=json&type=road&key=BAE2A59FB9AD4D27BE4C243AE11BDB90"
+    api_url = f"https://api.vworld.kr/req/address?service=address&request=getcoord&version=2.0&crs=epsg:4326&address={query}&refine=true&simple=false&format=json&type=road&key=BAE2A59FB9AD4D27BE4C243AE11BDB90"
     response = requests.get(api_url)
     if response.status_code == 200:
         data = response.json()
@@ -16,7 +16,7 @@ def get_coords(query):
 
 def get_cctv_info(x, y):
     """국가교통정보센터 CCTV API를 사용하여 좌표 주변의 CCTV 정보를 가져옵니다."""
-    api_url = f"http://www.utic.go.kr/guide/openCctvPlayer.do?key={CCTV_API_KEY}&type=ex&cctvId=1&minX={float(x)-0.01}&maxX={float(x)+0.01}&minY={float(y)-0.01}&maxY={float(y)+0.01}&getType=json"
+    api_url = f"https://openapi.its.go.kr:9443/cctvInfo?key={CCTV_API_KEY}&type=ex&cctvId=1&minX={float(x)-0.01}&maxX={float(x)+0.01}&minY={float(y)-0.01}&maxY={float(y)+0.01}&getType=json"
     response = requests.get(api_url)
     if response.status_code == 200:
         return response.json()
