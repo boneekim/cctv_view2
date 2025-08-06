@@ -1,8 +1,8 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, render_template
 import requests
 from config import CCTV_API_KEY
 
-app = Flask(__name__, static_folder='.', static_url_path='')
+app = Flask(__name__)
 
 def get_coords(query):
     """VWorld 지오코더 API를 사용하여 주소나 장소 이름으로부터 좌표를 가져옵니다."""
@@ -24,7 +24,7 @@ def get_cctv_info(x, y):
 
 @app.route('/')
 def index():
-    return send_from_directory('.', 'index.html')
+    return render_template('index.html')
 
 @app.route('/api/cctv')
 def api_cctv():
